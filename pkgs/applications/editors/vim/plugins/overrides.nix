@@ -38,6 +38,7 @@
   languagetool,
   llvmPackages,
   meson,
+  notmuch,
   neovim-unwrapped,
   nim1,
   nodePackages,
@@ -56,6 +57,7 @@
   taskwarrior3,
   tmux,
   tup,
+  typescript,
   vim,
   which,
   xkb-switch,
@@ -1407,6 +1409,11 @@ in
     nvimRequireCheck = "lsp-progress";
   };
 
+  lspecho-nvim = super.lspecho-nvim.overrideAttrs {
+    meta.license = lib.licenses.mit;
+    nvimRequireCheck = "lspecho";
+  };
+
   lualine-lsp-progress = super.lualine-lsp-progress.overrideAttrs {
     dependencies = with self; [ lualine-nvim ];
   };
@@ -1755,6 +1762,8 @@ in
     nvimRequireCheck = "null-ls";
   };
 
+  notmuch-vim = notmuch.vim;
+
   NotebookNavigator-nvim = super.NotebookNavigator-nvim.overrideAttrs {
     nvimRequireCheck = "notebook-navigator";
   };
@@ -1816,6 +1825,11 @@ in
     dependencies = with self; [
       nvim-treesitter
     ];
+  };
+
+  nvim-lsp-file-operations = super.nvim-lsp-file-operations.overrideAttrs {
+    dependencies = [ self.plenary-nvim ];
+    nvimRequireCheck = "lsp-file-operations";
   };
 
   nvim-lsputils = super.nvim-lsputils.overrideAttrs {
@@ -2600,6 +2614,14 @@ in
   todo-comments-nvim = super.todo-comments-nvim.overrideAttrs {
     dependencies = [ self.plenary-nvim ];
     nvimRequireCheck = "todo-comments";
+  };
+
+  tsc-nvim = super.tsc-nvim.overrideAttrs {
+    patches = [ ./patches/tsc.nvim/fix-path.patch ];
+
+    postPatch = ''
+      substituteInPlace lua/tsc/utils.lua --replace '@tsc@' ${typescript}/bin/tsc
+    '';
   };
 
   tssorter-nvim = super.tssorter-nvim.overrideAttrs {
