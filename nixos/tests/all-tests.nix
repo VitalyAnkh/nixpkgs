@@ -253,6 +253,7 @@ in {
   curl-impersonate = handleTest ./curl-impersonate.nix {};
   custom-ca = handleTest ./custom-ca.nix {};
   croc = handleTest ./croc.nix {};
+  cross-seed = runTest ./cross-seed.nix;
   cyrus-imap = runTest ./cyrus-imap.nix;
   darling = handleTest ./darling.nix {};
   darling-dmg = runTest ./darling-dmg.nix;
@@ -413,6 +414,7 @@ in {
   grafana = handleTest ./grafana {};
   grafana-agent = handleTest ./grafana-agent.nix {};
   graphite = handleTest ./graphite.nix {};
+  grav = runTest ./web-apps/grav.nix;
   graylog = handleTest ./graylog.nix {};
   greetd-no-shadow = handleTest ./greetd-no-shadow.nix {};
   grocy = handleTest ./grocy.nix {};
@@ -923,6 +925,7 @@ in {
   rmfakecloud = runTest ./rmfakecloud.nix;
   robustirc-bridge = handleTest ./robustirc-bridge.nix {};
   roundcube = handleTest ./roundcube.nix {};
+  routinator = handleTest ./routinator.nix {};
   rosenpass = handleTest ./rosenpass.nix {};
   rshim = handleTest ./rshim.nix {};
   rspamd = handleTest ./rspamd.nix {};
@@ -953,6 +956,7 @@ in {
   seatd = handleTest ./seatd.nix {};
   send = runTest ./send.nix;
   service-runner = handleTest ./service-runner.nix {};
+  servo = runTest ./servo.nix;
   shadps4 = runTest ./shadps4.nix;
   sftpgo = runTest ./sftpgo.nix;
   sfxr-qt = handleTest ./sfxr-qt.nix {};
