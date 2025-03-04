@@ -9,6 +9,7 @@
   yarn,
   nixosTests,
   git,
+  nix-update-script,
 }:
 let
   # this rarely changes https://github.com/zabbly/incus/blob/daily/patches/ui-canonical-renames.sed
@@ -19,13 +20,14 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "incus-ui-canonical";
-  version = "0.15";
+  version = "0.15.0";
 
   src = fetchFromGitHub {
     owner = "zabbly";
     repo = "incus-ui-canonical";
-    tag = version;
-    hash = "sha256-HqdaG51W7eUCGUhA+9pYrAWaA6qyK7Fc95CKJvk9GaA=";
+    # only use tags prefixed by incus- they are the tested fork versions
+    tag = "incus-${version}";
+    hash = "sha256-I0t2ShMkc/zYn7I6Vcd9A31ZAscY0D7cWAdF80NwRGg=";
   };
 
   offlineCache = fetchYarnDeps {
@@ -34,7 +36,7 @@ stdenv.mkDerivation rec {
   };
 
   patchPhase = ''
-    find -type f -name "*.ts" -o -name "*.tsx" -o -name "*.scss" -o -name "*.html" | xargs sed -i -f ${renamesSed}
+    find -type f -name "*.ts" -o -name "*.tsx" -o -name "*.scss" | xargs sed -i -f ${renamesSed}
   '';
 
   nativeBuildInputs = [
@@ -72,7 +74,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.default = nixosTests.incus.ui;
+  passthru = {
+    tests.default = nixosTests.incus.ui;
+
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "incus-([0-9\\.]+)"
+      ];
+    };
+  };
 
   meta = {
     description = "Web user interface for Incus";

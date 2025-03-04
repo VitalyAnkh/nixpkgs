@@ -452,14 +452,21 @@ let
               stripLen = 1;
             })
           ]
-          ++ lib.optionals (lib.versions.major metadata.release_version == "14") [
-            # fix RuntimeDyld usage on aarch64-linux (e.g. python312Packages.numba tests)
-            (fetchpatch {
-              url = "https://github.com/llvm/llvm-project/commit/2e1b838a889f9793d4bcd5dbfe10db9796b77143.patch";
-              relative = "llvm";
-              hash = "sha256-Ot45P/iwaR4hkcM3xtLwfryQNgHI6pv6ADjv98tgdZA=";
-            })
-          ]
+          ++
+            lib.optionals
+              (
+                (lib.versionAtLeast (lib.versions.major metadata.release_version) "14")
+                && (lib.versionOlder (lib.versions.major metadata.release_version) "17")
+              )
+              [
+                # fix RuntimeDyld usage on aarch64-linux (e.g. python312Packages.numba tests)
+                # See also: https://github.com/numba/numba/issues/9109
+                (fetchpatch {
+                  url = "https://github.com/llvm/llvm-project/commit/2e1b838a889f9793d4bcd5dbfe10db9796b77143.patch";
+                  relative = "llvm";
+                  hash = "sha256-Ot45P/iwaR4hkcM3xtLwfryQNgHI6pv6ADjv98tgdZA=";
+                })
+              ]
           ++
             lib.optional (lib.versions.major metadata.release_version == "17")
               # resolves https://github.com/llvm/llvm-project/issues/75168
@@ -498,18 +505,7 @@ let
                   hash = "sha256-mvBlG2RxpZPFnPI7jvCMz+Fc8JuM15Ye3th1FVZMizE=";
                   stripLen = 1;
                 })
-              ]
-          ++
-            lib.optional (lib.versions.major metadata.release_version == "20")
-              # Fix OrcJIT tests with page sizes > 16k
-              # PR: https://github.com/llvm/llvm-project/pull/127115
-              (
-                fetchpatch {
-                  url = "https://github.com/llvm/llvm-project/commit/415607e10b56d0e6c4661ff1ec5b9b46bf433cba.patch";
-                  stripLen = 1;
-                  hash = "sha256-vBbuduJB+NnNE9qtR93k64XKrwvc7w3vowjL/aT+iEA=";
-                }
-              );
+              ];
         pollyPatches =
           [ (metadata.getVersionFile "llvm/gnu-install-dirs-polly.patch") ]
           ++ lib.optional (lib.versionAtLeast metadata.release_version "15")
