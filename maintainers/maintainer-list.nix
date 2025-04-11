@@ -5598,7 +5598,7 @@
     name = "David Sánchez";
   };
   dav-wolff = {
-    email = "dav-wolff@outlook.com";
+    email = "nixpkgs@dav.dev";
     github = "dav-wolff";
     githubId = 130931508;
     name = "David Wolff";
@@ -15651,6 +15651,12 @@
     email = "shmitty@protonmail.com";
     github = "michaelshmitty";
     githubId = 114845;
+  };
+  michaelvanstraten = {
+    name = "Michael van Straten";
+    email = "michael@vanstraten.de";
+    github = "michaelvanstraten";
+    githubId = 50352631;
   };
   michalrus = {
     email = "m@michalrus.com";
