@@ -313,6 +313,7 @@
   ./programs/system-config-printer.nix
   ./programs/systemtap.nix
   ./programs/tcpdump.nix
+  ./programs/television.nix
   ./programs/thefuck.nix
   ./programs/thunar.nix
   ./programs/thunderbird.nix
@@ -367,6 +368,7 @@
   ./security/auditd.nix
   ./security/ca.nix
   ./security/chromium-suid-sandbox.nix
+  ./security/default.nix
   ./security/dhparams.nix
   ./security/doas.nix
   ./security/duosec.nix
@@ -515,6 +517,7 @@
   ./services/databases/opentsdb.nix
   ./services/databases/pgbouncer.nix
   ./services/databases/pgmanage.nix
+  ./services/databases/postgres-websockets.nix
   ./services/databases/postgresql.nix
   ./services/databases/postgrest.nix
   ./services/databases/redis.nix
@@ -553,7 +556,6 @@
   ./services/desktops/gnome/rygel.nix
   ./services/desktops/gnome/sushi.nix
   ./services/desktops/gnome/tinysparql.nix
-  ./services/desktops/gsignond.nix
   ./services/desktops/gvfs.nix
   ./services/desktops/malcontent.nix
   ./services/desktops/neard.nix
@@ -747,7 +749,6 @@
   ./services/matrix/appservice-discord.nix
   ./services/matrix/appservice-irc.nix
   ./services/matrix/conduit.nix
-  ./services/matrix/conduwuit.nix
   ./services/matrix/dendrite.nix
   ./services/matrix/hebbot.nix
   ./services/matrix/hookshot.nix
@@ -1055,6 +1056,8 @@
   ./services/networking/atticd.nix
   ./services/networking/autossh.nix
   ./services/networking/avahi-daemon.nix
+  ./services/networking/ax25/axlisten.nix
+  ./services/networking/ax25/axports.nix
   ./services/networking/babeld.nix
   ./services/networking/bee.nix
   ./services/networking/biboumi.nix
@@ -1136,6 +1139,7 @@
   ./services/networking/go-shadowsocks2.nix
   ./services/networking/gobgpd.nix
   ./services/networking/gokapi.nix
+  ./services/networking/godns.nix
   ./services/networking/gvpe.nix
   ./services/networking/hans.nix
   ./services/networking/harmonia.nix
@@ -1490,6 +1494,7 @@
   ./services/web-apps/archtika.nix
   ./services/web-apps/artalk.nix
   ./services/web-apps/audiobookshelf.nix
+  ./services/web-apps/baikal.nix
   ./services/web-apps/bluemap.nix
   ./services/web-apps/bookstack.nix
   ./services/web-apps/c2fmzq-server.nix
@@ -1636,6 +1641,7 @@
   ./services/web-apps/wakapi.nix
   ./services/web-apps/weblate.nix
   ./services/web-apps/whitebophir.nix
+  ./services/web-apps/whoami.nix
   ./services/web-apps/wiki-js.nix
   ./services/web-apps/windmill.nix
   ./services/web-apps/wordpress.nix
