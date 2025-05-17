@@ -121,8 +121,6 @@ let
               "uclibc"
             else if final.isAndroid then
               "bionic"
-            else if final.isLLVMLibc then
-              "llvm"
             else if
               final.isLinux # default
             then
@@ -248,7 +246,7 @@ let
           # don't support dynamic linking, but don't get the `staticMarker`.
           # `pkgsStatic` sets `isStatic=true`, so `pkgsStatic.hostPlatform` always
           # has the `staticMarker`.
-          isStatic = final.isWasi || final.isRedox || final.isLLVMLibc;
+          isStatic = final.isWasi || final.isRedox;
 
           # Just a guess, based on `system`
           inherit
@@ -354,21 +352,9 @@ let
             else
               null;
 
-          # Remove before 25.05
-          androidSdkVersion =
-            if (args ? sdkVer && !args ? androidSdkVersion) then
-              throw "For android `sdkVer` has been renamed to `androidSdkVersion`"
-            else if (args ? androidSdkVersion) then
-              args.androidSdkVersion
-            else
-              null;
-          androidNdkVersion =
-            if (args ? ndkVer && !args ? androidNdkVersion) then
-              throw "For android `ndkVer` has been renamed to `androidNdkVersion`"
-            else if (args ? androidSdkVersion) then
-              args.androidNdkVersion
-            else
-              null;
+          # Handle Android SDK and NDK versions.
+          androidSdkVersion = args.androidSdkVersion or null;
+          androidNdkVersion = args.androidNdkVersion or null;
         }
         // (
           let
@@ -532,6 +518,35 @@ let
               "switch"
               "-uefi"
             ];
+          };
+        }
+        // {
+          go = {
+            # See https://pkg.go.dev/internal/platform for a list of known platforms
+            GOARCH =
+              {
+                "aarch64" = "arm64";
+                "arm" = "arm";
+                "armv5tel" = "arm";
+                "armv6l" = "arm";
+                "armv7l" = "arm";
+                "i686" = "386";
+                "loongarch64" = "loong64";
+                "mips" = "mips";
+                "mips64el" = "mips64le";
+                "mipsel" = "mipsle";
+                "powerpc64" = "ppc64";
+                "powerpc64le" = "ppc64le";
+                "riscv64" = "riscv64";
+                "s390x" = "s390x";
+                "x86_64" = "amd64";
+                "wasm32" = "wasm";
+              }
+              .${final.parsed.cpu.name} or (throw "Unknown CPU variant ${final.parsed.cpu.name} by Go");
+            GOOS = if final.isWasi then "wasip1" else final.parsed.kernel.name;
+
+            # See https://go.dev/wiki/GoArm
+            GOARM = toString (lib.intersectLists [ (final.parsed.cpu.version or "") ] [ "5" "6" "7" ]);
           };
         };
     in

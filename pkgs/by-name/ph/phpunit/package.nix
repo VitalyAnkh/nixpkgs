@@ -10,16 +10,16 @@
 
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpunit";
-  version = "12.1.2";
+  version = "12.1.5";
 
   src = fetchFromGitHub {
     owner = "sebastianbergmann";
     repo = "phpunit";
     tag = finalAttrs.version;
-    hash = "sha256-ug4fi+PJbtwbxL3qS2dzaVTdKr0o4hwFA3+Us7JCFIY=";
+    hash = "sha256-+KYRsYFUs85fOO2mTcB73Cmhc5HOHe5/y7lryGdBYwE=";
   };
 
-  vendorHash = "sha256-EN9iYbFht77/N5Ull/+TS3BjzMR7YCujz9p5Rgqos6g=";
+  vendorHash = "sha256-V7v2XdVawZ/DWjyKugc700EaOCPMWr+wXaXToBWXPQY=";
 
   passthru = {
     updateScript = nix-update-script { };
@@ -36,6 +36,7 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://phpunit.de";
     license = lib.licenses.bsd3;
     mainProgram = "phpunit";
-    maintainers = with lib.maintainers; [ onny ] ++ lib.teams.php.members;
+    maintainers = with lib.maintainers; [ onny ];
+    teams = [ lib.teams.php ];
   };
 })
