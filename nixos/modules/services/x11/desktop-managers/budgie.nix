@@ -245,8 +245,7 @@ in
     services.system-config-printer.enable = config.services.printing.enable;
 
     # For BCC's Sharing panel.
-    services.dleyna-renderer.enable = mkDefault true;
-    services.dleyna-server.enable = mkDefault true;
+    services.dleyna.enable = mkDefault true;
     services.gnome.gnome-user-share.enable = mkDefault true;
     services.gnome.rygel.enable = mkDefault true;
 
@@ -254,6 +253,7 @@ in
     services.gnome.evolution-data-server.enable = mkDefault true;
     services.gnome.glib-networking.enable = mkDefault true;
     services.gnome.gnome-keyring.enable = mkDefault true;
+    services.gnome.gcr-ssh-agent.enable = mkDefault true;
     services.gnome.gnome-settings-daemon.enable = mkDefault true;
     services.gvfs.enable = mkDefault true;
 

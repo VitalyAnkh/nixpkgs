@@ -22,14 +22,14 @@
 
 buildPythonPackage rec {
   pname = "rq";
-  version = "2.3.1";
+  version = "2.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "rq";
     repo = "rq";
     tag = "v${version}";
-    hash = "sha256-RnnYO6gKhbcft61EhTFbfvhC+9SsVfDsu64GuNfGKvE=";
+    hash = "sha256-NUs544J/pC2QNyR2aIlac2P06so7JmB2P6FB/gmR7wI=";
   };
 
   build-system = [ hatchling ];
@@ -48,10 +48,6 @@ buildPythonPackage rec {
     versionCheckHook
   ];
   versionCheckProgramArg = "--version";
-
-  preCheck = ''
-    export PATH=$out/bin:$PATH
-  '';
 
   __darwinAllowLocalNetworking = true;
 
